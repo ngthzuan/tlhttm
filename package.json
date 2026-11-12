@@ -1,0 +1,23 @@
+{
+  "name": "tro-ly-hoc-tap-thong-minh",
+  "private": true,
+  "version": "1.0.0",
+  "description": "TRỢ LÝ HỌC TẬP THÔNG MINH — Nền Tảng Tự Học & Khảo Thí Trực Tuyến GDPT 2018 (Trường THCS Long Phú)",
+  "type": "module",
+  "scripts": {
+    "dev": "tauri dev",
+    "build": "tauri build",
+    "tauri": "tauri"
+  },
+  "dependencies": {
+    "@tauri-apps/api": "^2.0.0",
+    "@tauri-apps/plugin-clipboard-manager": "~2.2.0",
+    "@tauri-apps/plugin-dialog": "~2.2.0",
+    "@tauri-apps/plugin-fs": "~2.2.0",
+    "@tauri-apps/plugin-notification": "~2.2.0",
+    "@tauri-apps/plugin-opener": "~2.2.0"
+  },
+  "devDependencies": {
+    "@tauri-apps/cli": "^2.2.0"
+  }
+}

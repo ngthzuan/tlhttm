@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Trợ Lý Học Tập Thông Minh — Trường THCS Long Phú</title>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --bg: #0f172a;
+      --card-bg: #1e293b;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --border: #334155;
+      --accent: #38bdf8;
+      --danger: #ef4444;
+      --success: #22c55e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, #0b1120 0%, #0f172a 50%, #1e1b4b 100%);
+      color: var(--text-main);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      user-select: none;
+    }
+
+    .container {
+      max-width: 560px;
+      width: 100%;
+      background: rgba(30, 41, 59, 0.85);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px 32px;
+      text-align: center;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      animation: fadeIn 0.4s ease-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .badge-school {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(37, 99, 235, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent);
+      padding: 6px 14px;
+      border-radius: 9999px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      margin-bottom: 24px;
+      text-transform: uppercase;
+    }
+
+    .icon-wrapper {
+      position: relative;
+      width: 88px;
+      height: 88px;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.02) 70%);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+    }
+
+    .icon-wrapper.connecting {
+      background: radial-gradient(circle, rgba(56, 189, 248, 0.15) 0%, rgba(56, 189, 248, 0.02) 70%);
+      border-color: rgba(56, 189, 248, 0.3);
+    }
+
+    .icon-wrapper svg {
+      width: 44px;
+      height: 44px;
+      stroke: var(--danger);
+      stroke-width: 2;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+    }
+
+    .icon-wrapper.connecting svg {
+      stroke: var(--accent);
+    }
+
+    .pulse-ring {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      border: 2px solid var(--danger);
+      opacity: 0;
+      animation: pulse 2s infinite ease-out;
+    }
+
+    .icon-wrapper.connecting .pulse-ring {
+      border-color: var(--accent);
+    }
+
+    @keyframes pulse {
+      0% { transform: scale(0.9); opacity: 0.6; }
+      100% { transform: scale(1.4); opacity: 0; }
+    }
+
+    h1 {
+      font-size: 22px;
+      font-weight: 700;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      color: #fff;
+    }
+
+    p.desc {
+      color: var(--text-sub);
+      font-size: 15px;
+      line-height: 1.6;
+      margin-bottom: 28px;
+    }
+
+    .status-box {
+      background: rgba(15, 23, 42, 0.6);
+      border: 1px solid rgba(148, 163, 184, 0.15);
+      border-radius: 12px;
+      padding: 12px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--text-sub);
+    }
+
+    .status-indicator {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--danger);
+      box-shadow: 0 0 8px var(--danger);
+      transition: all 0.3s ease;
+    }
+
+    .dot.connecting {
+      background: var(--accent);
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .btn-retry {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 14px 24px;
+      background: linear-gradient(135deg, #2563eb, #1d4ed8);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+    }
+
+    .btn-retry:hover {
+      background: linear-gradient(135deg, #1d4ed8, #1e40af);
+      transform: translateY(-1px);
+      box-shadow: 0 6px 20px rgba(37, 99, 235, 0.6);
+    }
+
+    .btn-retry:active {
+      transform: translateY(1px);
+    }
+
+    .btn-retry.loading {
+      opacity: 0.7;
+      pointer-events: none;
+    }
+
+    .footer-note {
+      margin-top: 24px;
+      font-size: 12px;
+      color: #64748b;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="badge-school">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M22 10v6M2 10l10-5 10 5-10 5z"/>
+        <path d="M6 12v5c3 3 9 3 12 0v-5"/>
+      </svg>
+      Trường THCS Long Phú
+    </div>
+
+    <div class="icon-wrapper" id="icon-wrap">
+      <div class="pulse-ring"></div>
+      <svg viewBox="0 0 24 24" id="main-icon">
+        <line x1="1" y1="1" x2="23" y2="23"></line>
+        <path d="M16.72 11.06A10.94 10.94 0 0 1 19 12.55"></path>
+        <path d="M5 12.55a10.94 10.94 0 0 1 5.17-2.39"></path>
+        <path d="M10.71 5.05A16 16 0 0 1 22.58 9"></path>
+        <path d="M1.42 9a15.91 15.91 0 0 1 4.7-2.88"></path>
+        <path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path>
+        <line x1="12" y1="20" x2="12.01" y2="20"></line>
+      </svg>
+    </div>
+
+    <h1 id="title-text">Mất kết nối Internet</h1>
+    <p class="desc" id="desc-text">
+      Vui lòng kiểm tra lại kết nối mạng Wi-Fi hoặc cáp mạng trên máy tính để tiếp tục tự học và khảo thí trực tuyến GDPT 2018.
+    </p>
+
+    <div class="status-box">
+      <div class="status-indicator">
+        <div class="dot" id="dot"></div>
+        <span id="status-text">Đang ngắt kết nối máy chủ</span>
+      </div>
+      <span>tuhoc.thzuan.io.vn</span>
+    </div>
+
+    <button class="btn-retry" id="retry-btn" onclick="retryConnection()">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="23 4 23 10 17 10"></polyline>
+        <polyline points="1 20 1 14 7 14"></polyline>
+        <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+      </svg>
+      <span id="btn-text">Thử kết nối lại</span>
+    </button>
+
+    <div class="footer-note">
+      Trợ Lý Học Tập Thông Minh — Nền Tảng Tự Học & Khảo Thí Trực Tuyến GDPT 2018<br>
+      Ứng dụng sẽ tự động thử kết nối lại khi phát hiện có mạng trở lại.
+    </div>
+  </div>
+
+  <script>
+    const TARGET_URL = "https://tuhoc.thzuan.io.vn";
+
+    async function checkOnline() {
+      try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 4000);
+        await fetch(`${TARGET_URL}/?_t=${Date.now()}`, {
+          method: "HEAD",
+          mode: "no-cors",
+          signal: controller.signal
+        });
+        clearTimeout(timeoutId);
+        return true;
+      } catch (e) {
+        return false;
+      }
+    }
+
+    async function retryConnection() {
+      const btn = document.getElementById("retry-btn");
+      const btnText = document.getElementById("btn-text");
+      const dot = document.getElementById("dot");
+      const statusText = document.getElementById("status-text");
+
+      btn.classList.add("loading");
+      btnText.innerText = "Đang kiểm tra kết nối...";
+      statusText.innerText = "Đang kiểm tra mạng...";
+
+      const isOnline = await checkOnline();
+
+      if (isOnline) {
+        dot.style.background = "#22c55e";
+        dot.style.boxShadow = "0 0 8px #22c55e";
+        statusText.innerText = "Đã kết nối! Đang tải hệ thống...";
+        btnText.innerText = "Đang chuyển tiếp...";
+        setTimeout(() => {
+          window.location.href = TARGET_URL;
+        }, 400);
+      } else {
+        setTimeout(() => {
+          btn.classList.remove("loading");
+          btnText.innerText = "Thử kết nối lại";
+          statusText.innerText = "Chưa có kết nối Internet";
+          dot.style.background = "#ef4444";
+          dot.style.boxShadow = "0 0 8px #ef4444";
+        }, 800);
+      }
+    }
+
+    // Auto-detect online
+    window.addEventListener("online", () => retryConnection());
+
+    // Auto heartbeat every 5s
+    setInterval(async () => {
+      if (navigator.onLine) {
+        const ok = await checkOnline();
+        if (ok) {
+          window.location.href = TARGET_URL;
+        }
+      }
+    }, 5000);
+
+    // Initial check on load
+    checkOnline().then(ok => {
+      if (ok) {
+        window.location.href = TARGET_URL;
+      }
+    });
+  </script>
+</body>
+</html>
