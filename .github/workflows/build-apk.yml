@@ -52,7 +52,7 @@ jobs:
         run: npx tauri android init
 
       - name: Build Android APK (Unsigned Release)
-        run: npx tauri android build --apk
+        run: npx tauri android build --apk --ci --ignore-version-mismatches
 
       - name: Organize APK Files
         run: |
@@ -87,7 +87,7 @@ jobs:
         run: npm install
 
       - name: Build Windows Installer (NSIS)
-        run: npm run tauri build
+        run: npm run tauri build -- --ci --ignore-version-mismatches
 
       - name: Upload Windows Installer Artifact
         uses: actions/upload-artifact@v4
